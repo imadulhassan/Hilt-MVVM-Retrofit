@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Integriti Task</string>
+    <string name="rate_app">Rate App</string>
+    <string name="share_app">Share App</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_use">Terms of Use</string>
+    <string name="language">Language</string>
+    <string name="help_center">Help Center</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+</resources>

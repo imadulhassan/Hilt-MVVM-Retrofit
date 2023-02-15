@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/rateapp_icon"
+        android:title="@string/rate_app" />
+    <item
+        android:icon="@drawable/share_icon"
+        android:title="@string/share_app" />
+    <item
+        android:icon="@drawable/privacypolicy_icon"
+        android:title="@string/privacy_policy" />
+    <item
+        android:icon="@drawable/termsofuse_icon"
+        android:title="@string/terms_of_use" />
+    <item
+        android:icon="@drawable/language_icon"
+        android:title="@string/language" />
+    <item
+        android:icon="@drawable/helpcenter_icon"
+        android:title="@string/help_center" />
+
+</menu>
