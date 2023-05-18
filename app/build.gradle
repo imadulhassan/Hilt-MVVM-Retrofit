@@ -3,84 +3,124 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.dagger.hilt.android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
-    compileSdk 33
+
 
     defaultConfig {
-        applicationId "com.hiltMvvmRetrofit"
-        minSdk 21
-        targetSdk 33
+        minSdkVersion 24
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", '"https://api.duckduckgo.com/"')
+        buildConfigField("String", "IMAGE_URL", '"https://duckduckgo.com"')
+
     }
 
+    compileSdkVersion 33
 
     buildTypes {
         release {
-            buildConfigField("String","BASE_URL",'"https://rickandmortyapi.com/"')
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug{
-            buildConfigField("String","BASE_URL",'"https://rickandmortyapi.com/"')
+
+    }
+
+    flavorDimensions "version"
+
+    productFlavors {
+        SimpsonsCharacterViewer {
+            dimension "version"
+            buildConfigField("String", "QUERY", '"simpsons characters"')
+            applicationId "com.sample.simpsonsviewer"
+            resValue "string", "app_name", "Simpsons Character Viewer"
+        }
+
+        TheWireCharacterViewer {
+            buildConfigField("String", "QUERY", '"the wire characters"')
+            dimension "version"
+            applicationId "com.sample.wireviewer"
+            resValue "string", "app_name", "The Wire Character Viewer"
         }
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def variantName = variant.name.capitalize()
+            def apkName = "${variantName}-${defaultConfig.versionName}.apk"
+            outputFileName = apkName
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding true
-        dataBinding = true
+
     }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:+'
-    def ktxV= '1.7.0'
-    def lifeCycleV= '2.5.1'
-    def hiltV= '2.44'
-    def dataBindingV= '7.1.2'
-    def courtinesV= '1.3.9'
-    def retrofitVersion="2.9.0"
+    def ktxV = '1.7.0'
+    def lifeCycleV = '2.6.1'
+    def hiltV = '2.44'
+    def coroutineV = '1.3.9'
+    def retrofitV = '2.9.0'
+    def gsonV = '2.10.1'
+    def picassoV = '2.71828'
+    def recycleV = '1.3.0'
+    def navigationV = '2.5.3'
+    def appCompactV = '1.6.1'
+    def materialV = '1.8.0'
+    def constraintV = '2.1.4'
+    def circleImageV = '3.1.0'
+    def sdpV = '1.0.6'
 
 
-    implementation 'androidx.core:core-ktx:'+ktxV
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     // Jetpack LifeCycle
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:'+lifeCycleV
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:'+lifeCycleV
-    implementation 'androidx.navigation:navigation-fragment-ktx:'+lifeCycleV
-    implementation 'androidx.navigation:navigation-ui-ktx:'+lifeCycleV
-    //Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$courtinesV"
-    //DataBingding
-    implementation 'androidx.databinding:databinding-runtime:'+dataBindingV
+    implementation 'androidx.recyclerview:recyclerview:' + recycleV
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:' + lifeCycleV
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:' + lifeCycleV
+    implementation 'androidx.navigation:navigation-fragment-ktx:' + navigationV
+    implementation 'androidx.navigation:navigation-ui-ktx:' + navigationV
 
-    //Testing
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation 'com.intuit.sdp:sdp-android:1.0.6'
-    implementation 'com.squareup.picasso:picasso:2.8'
+
+    implementation 'androidx.core:core-ktx:' + ktxV
+    implementation 'androidx.appcompat:appcompat:' + appCompactV
+    implementation 'com.google.android.material:material:' + materialV
+    implementation 'androidx.constraintlayout:constraintlayout:' + constraintV
+
+
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:' + coroutineV
+
+
+    implementation 'com.intuit.sdp:sdp-android:' + sdpV
+    // Picasso For Network Image
+    implementation 'com.squareup.picasso:picasso:' + picassoV
     // Dependency Injection Hilt
-    implementation("com.google.dagger:hilt-android:$hiltV")
-    kapt("com.google.dagger:hilt-android-compiler:$hiltV")
+    implementation 'com.google.dagger:hilt-android:' + hiltV
+    kapt 'com.google.dagger:hilt-android-compiler:' + hiltV
     // Retrofit for network Calls
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.google.code.gson:gson:2.10.1"
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:' + retrofitV
+    implementation 'com.squareup.retrofit2:retrofit:' + retrofitV
+    //Gson
+    implementation 'com.google.code.gson:gson:' + gsonV
+    //Circle Image View
+    implementation 'de.hdodenhof:circleimageview:' + circleImageV
 
 
 }

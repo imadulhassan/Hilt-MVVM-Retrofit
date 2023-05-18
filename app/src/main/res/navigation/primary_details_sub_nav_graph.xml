@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_details"
+    app:startDestination="@id/fragment_chracter_detail"
+
+    >
+    <fragment
+        android:id="@+id/fragment_chracter_detail"
+        android:name="com.sample.ui.home.fragments.details.DetailFragment"
+        android:label="@string/title_chracter_detail"
+        tools:layout="@layout/fragment_chracter_detail">
+
+    </fragment>
+
+</navigation>
